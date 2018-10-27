@@ -24,7 +24,22 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="agence" class="col-md-4 col-form-label text-md-right">{{ __('Agence') }}</label>
 
+                            <div class="col-md-6">
+                                <select id="agence" class="form-control{{ $errors->has('agence') ? ' is-invalid' : '' }}" name="agence"  required autofocus>
+                                    <option value="">Selectionné une agence</option>
+                                    <option value="1">Agence Belle Vue</option>
+                                    <option value="2">agence El kantara</option>
+                                </select>
+                                @if ($errors->has('agence'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('agence') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 

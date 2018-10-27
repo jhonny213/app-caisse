@@ -9,9 +9,7 @@ class AgenceController extends Controller
 {
     //lister les agences
     function index(){
-        function create(){
             return view('agences.index');
-         }
     }
     //affiche le formumair de cration d'agance
      function create(){

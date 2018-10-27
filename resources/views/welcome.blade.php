@@ -5,10 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
-
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
-
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <!-- Styles -->
         <style>
             html, body {
@@ -19,11 +20,6 @@
                 height: 100vh;
                 margin: 0;
             }
-
-            .full-height {
-                height: 30vh;
-            }
-
             .flex-center {
                 align-items: center;
                 display: flex;
@@ -37,7 +33,8 @@
             .top-right {
                 position: absolute;
                 right: 10px;
-                top: 18px;
+                top: -10px;
+                z-index: 999;
             }
 
             .content {
@@ -92,69 +89,50 @@
             .active {
                 background-color: #4CAF50;
             }
+            .tab-content{
+                z-index: -1;
+            }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+            @auth
+        <div class="flex-center position-ref">
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+                    <div class="top-right links">
+                        <li class="nav-item dropdown ">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
 
-            <div class="container-fluid">
-                <nav class="nav nav-tabs">
-                    <a class="nav-item nav-link active" href="#caisses" data-toggle="tab">Caisses</a>
-                    <a class="nav-item nav-link" href="#banques" data-toggle="tab">Banques</a>
-                    <a class="nav-item nav-link" href="#agances" data-toggle="tab">Agences</a>
-                    <a class="nav-item nav-link" href="#fournisseurs" data-toggle="tab">Fournisseurs</a>
-                    <a class="nav-item nav-link" href="#fournitures" data-toggle="tab">Fournitures</a>
-                    <a class="nav-item nav-link" href="#utilisateur" data-toggle="tab">Utilisateur</a>
-                </nav>
-                <div class="tab-content border-bottom">
-                    <div class="tab-pane fade show active" id="caisses">
-                        <div class="icon-bar">
-                            <a class="active" href="caisses"><i class="fa fa-dollar-sign"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="banques">
-                        <div class="icon-bar">
-                            <a href="banques"><i class="fa fa-credit-card"></i></a>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="agances">
-                        <div class="icon-bar">
-                            <a href="agences"><i class="fa fa-home"></i></a>
-                            <a href="agences/creates"><i class="fa fa-home"></i></a>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="fournisseurs">
-                        <div class="icon-bar">
-                            <a href="fournisseurs"><i class="fa fa-home"></i></a>
-                            <a href="fournisseurs/create"><i class="fa fa-home"></i></a>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="fournitures">
-                        <div class="icon-bar">
-                            <a href="fournitures"><i class="fa fa-home"></i></a>
-                            <a href="fournitures/create"><i class="fa fa-home"></i></a>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="utilisateur">
-                        <div class="icon-bar">
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
+
+                
+
+
+                <div class="container-fluid" style="margin-top: 40px;">
+                        @yield('content')
+                </div>
+                @endauth
+
+                <footer class="fixed-bottom text-center border-top bg-info">
+                        <h6>copyright</h6>
+                </footer>
+
+
         <!-- Scripts -->
 <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}" defer></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}" defer></script>
