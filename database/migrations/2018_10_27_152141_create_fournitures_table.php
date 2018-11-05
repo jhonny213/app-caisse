@@ -15,8 +15,8 @@ class CreateFournituresTable extends Migration
     {
         Schema::create('fournitures', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('libelle');
-            $table->string('desc');
+            $table->string('libelle')->unique();
+            $table->string('desc')->nullable();
             $table->timestamps();
         });
     }

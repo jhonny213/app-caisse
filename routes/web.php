@@ -10,38 +10,62 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', 'Controller@index');
-// caisses
-Route::get('caisse/edit', 'CaisseController@edit');
-Route::get('caisse/update', 'CaisseController@update');
-Route::get('caisse/arrete', 'CaisseController@arreteCaisse');
-
-//banques
-Route::get('banque/edit', 'BanqueController@edit');
-Route::get('banque/update', 'BanqueController@update');
-Route::get('banque/arrete', 'BanqueController@arreteBanque');
-
-//agences
-Route::get('agences', 'AgenceController@index');
-Route::get('agences/create', 'AgenceController@create');
-Route::get('agences/store', 'AgenceController@store');
-Route::get('agences/edit', 'AgenceController@edit');
-Route::get('agences/update', 'AgenceController@update');
-
+//ACHATS
+Route::get('achats', 'AchatController@index');
+Route::group(['middleware' => 'Gestionnaire'], function () {
+    Route::post('achats/store', 'AchatController@store');
+    Route::get('achats/create', 'AchatController@create');
+    Route::get('achats/edit', 'AchatController@edit');
+    Route::post('achats/update', 'AchatController@update');
+});
+//AGENCES
+Route::group(['middleware' => 'admin'], function () {
+    Route::resource('agences', 'AgenceController');
+    Route::post('agences/store', 'AgenceController@store');
+    Route::post('agences/update', 'AgenceController@update');
+});
 //fournisseurs
-Route::get('fournisseurs', 'FournisseurController@index');
-Route::get('fournisseurs/create', 'FournisseurController@create');
-Route::get('fournisseurs/store', 'FournisseurController@store');
-Route::get('fournisseurs/edit', 'FournisseurController@edit');
-Route::get('fournisseurs/update', 'FournisseurController@update');
+Route::resource('fournisseurs','FournisseurController');
+Route::post('fournisseurs/store', 'FournisseurController@store');
+Route::post('fournisseurs/update', 'FournisseurController@update');
 
 //fournitures
-Route::get('fournitures', 'FournitureController@index');
-Route::get('fournitures/create', 'FournitureController@create');
-Route::get('fournitures/store', 'FournitureController@store');
-Route::get('fournitures/edit', 'FournitureController@edit');
-Route::get('fournitures/update', 'FournitureController@update');
+Route::resource('fournitures','FournitureController');
+Route::post('fournitures/store', 'FournitureController@store');
+Route::post('fournitures/update', 'FournitureController@update');
 
+//utilisateurs
+
+Route::group(['middleware' => 'admin'], function () {
+    Route::resource('utilisateurs','UserController');
+    Route::post('utilisateurs/store', 'UserController@store');
+});
+
+
+//alimente
+
+Route::get('alimentecaisse','AlimentecaisseController@index');
+Route::get('alimentebanque','AlimentebanqueController@index');
+
+Route::group(['middleware' => 'Gestionnaire'], function () {
+    Route::get('alimentecaisse/create','AlimentecaisseController@create');
+    Route::post('alimentecaisse/store','AlimentecaisseController@store');
+
+    Route::get('alimentebanque/create','AlimentebanqueController@create');
+    Route::post('alimentebanque/store','AlimentebanqueController@store');
+});
+
+
+//arrete
+Route::get('arretecaisse','ArretecaisseController@index');
+Route::group(['middleware' => 'Gestionnaire'], function () {
+    Route::get('arretecaisse/create','ArretecaisseController@create');
+    Route::post('arretecaisse/store','ArretecaisseController@store');
+});
+//auth
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+

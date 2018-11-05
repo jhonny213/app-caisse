@@ -15,8 +15,10 @@ class User extends Authenticatable
      *
      * @var array
      */
+    const DIRECTEUR = 'Directeir';
+    const GESTIONNAIRE = 'Gestionnaire';
     protected $fillable = [
-        'name', 'id_agence', 'email', 'password'
+        'nom', 'prenom', 'username', 'groupe', 'password'
     ];
 
     /**
@@ -27,4 +29,27 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+
+    public function agences()
+    {
+        return $this->belongsTo('Agence');
+    }
+
+    public function achats()
+    {
+        return $this->hasMany(Achat::class);
+    }
+
+    public function aliments()
+    {
+        return $this->hasMany(Aliment::class);
+    }
+
+    public function arretes()
+    {
+        return $this->hasMany(Arrete::class);
+    }
+
 }

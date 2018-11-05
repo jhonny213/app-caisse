@@ -15,11 +15,13 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->integer('agence_id')->unsigned();
+            $table->foreign('agence_id')->references('id')->on('agences');
+            $table->string('nom',20);
+            $table->string('prenom',20);
+            $table->string('username',40)->unique();
+            $table->enum('groupe',['Administrateur','Directeur','Gestionnaire']);
             $table->string('password');
-            $table->integer('id_agence');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -34,4 +36,5 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('users');
     }
+
 }

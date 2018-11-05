@@ -15,18 +15,20 @@ class CreateArretesTable extends Migration
     {
         Schema::create('arretes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('1_da');
-            $table->integer('2_da');
-            $table->integer('5_da');
-            $table->integer('10_da');
-            $table->integer('20_da');
-            $table->integer('50_da');
-            $table->integer('100_da');
-            $table->integer('200_da');
-            $table->integer('500_da');
-            $table->integer('1000_da');
-            $table->integer('2000_da');
-            $table->integer('id_user');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('1_da')->default(0)->nullable();
+            $table->integer('2_da')->default(0)->nullable();
+            $table->integer('5_da')->default(0)->nullable();
+            $table->integer('10_da')->default(0)->nullable();
+            $table->integer('20_da')->default(0)->nullable();
+            $table->integer('50_da')->default(0)->nullable();
+            $table->integer('100_da')->default(0)->nullable();
+            $table->integer('200_da')->default(0)->nullable();
+            $table->integer('500_da')->default(0)->nullable();
+            $table->integer('1000_da')->default(0)->nullable();
+            $table->integer('2000_da')->default(0)->nullable();
+            $table->decimal('sold_caisse')->default(0);
             $table->timestamps();
         });
     }

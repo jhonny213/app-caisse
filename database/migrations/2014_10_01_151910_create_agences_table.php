@@ -15,12 +15,12 @@ class CreateAgencesTable extends Migration
     {
         Schema::create('agences', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('wilaya');
             $table->string('adresse');
-            $table->string('tel',15);
-            $table->double('caisse');
-            $table->double('banque');
+            $table->string('tel',15)->unique();
+            $table->decimal('caisse')->default(0);
+            $table->decimal('banque')->default(0);
             $table->timestamps();
         });
     }

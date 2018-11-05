@@ -15,11 +15,19 @@ class CreateAchatsTable extends Migration
     {
         Schema::create('achats', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_user');
-            $table->string('type');
-            $table->float('prix');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->integer('fournisseur_id')->unsigned();
+            $table->foreign('fournisseur_id')->references('id')->on('fournisseurs');
+
+            $table->integer('fourniture_id')->unsigned();
+            $table->foreign('fourniture_id')->references('id')->on('fournitures');
+
+            $table->enum('machat', ['caisse','banque']);
+            $table->decimal('prix');
             $table->integer('validation');
-            $table->string('desc');
+            $table->string('desc')->nullable();
             $table->timestamps();
         });
     }

@@ -38,7 +38,7 @@
                 padding: 12px 0;
                 transition: all 0.3s ease;
                 color: white;
-                font-size: 36px;
+                font-size: 18px;
             }
 
             .icon-bar a:hover {
@@ -51,6 +51,10 @@
             .tab-content{
 
             }
+            #radioBtn .notActive{
+                color: #3276b1;
+                background-color: #fff;
+            }
         </style>
 
 </head>
@@ -59,7 +63,7 @@
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Caisse') }}
+                    {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -75,18 +79,11 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                @if (Route::has('register'))
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                @endif
-                            </li>
+
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->username }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -108,46 +105,75 @@
         </nav>
         @auth
         <nav class="nav nav-tabs">
-                <a class="nav-item nav-link active" href="#caisses" data-toggle="tab">Caisses</a>
-                <a class="nav-item nav-link" href="#banques" data-toggle="tab">Banques</a>
+                <a class="nav-item nav-link" href="#caisse" data-toggle="tab">Caisse</a>
+            <a class="nav-item nav-link" href="#banque" data-toggle="tab">Banque</a>
+                <a class="nav-item nav-link" href="#achats" data-toggle="tab">Achats</a>
+            @if (Auth::user()->groupe == 'Administrateur')
                 <a class="nav-item nav-link" href="#agences" data-toggle="tab">Agences</a>
+            @endif
                 <a class="nav-item nav-link" href="#fournisseurs" data-toggle="tab">Fournisseurs</a>
                 <a class="nav-item nav-link" href="#fournitures" data-toggle="tab">Fournitures</a>
-                <a class="nav-item nav-link" href="#utilisateur" data-toggle="tab">Utilisateur</a>
+                 @if (Auth::user()->groupe == 'Administrateur')
+                    <a class="nav-item nav-link" href="#utilisateurs" data-toggle="tab">Utilisateurs</a>
+                @endif
             </nav>
             <div class="tab-content border-bottom">
-                <div class="tab-pane fade show active" id="caisses">
+                <div class="tab-pane fade" id="caisse">
                     <div class="icon-bar">
-                        <a class="active" href="/caisses"><i class="fa fa-dollar-sign"></i></a>
+                        <a href="/alimentecaisse"><i class="fa fa-credit-card"> ETAT D'ALIMENTATION</i></a>
+                        @if (Auth::user()->groupe == 'Gestionnaire')
+                        <a href="/alimentecaisse/create"><i class="fa fa-credit-card"> ALIMENTE CAISSE</i></a>
+                        @endif
+                        <a href="/arretecaisse"><i class="fa fa-credit-card"> ETAT D'ARRET</i></a>
+                        @if (Auth::user()->groupe == 'Gestionnaire')
+                        <a href="/arretecaisse/create"><i class="fa fa-credit-card"> ARRETE CAISSE</i></a>
+                        @endif
                     </div>
                 </div>
-                <div class="tab-pane fade" id="banques">
+                <div class="tab-pane fade" id="banque">
                     <div class="icon-bar">
-                        <a href="/banques"><i class="fa fa-credit-card"></i></a>
+                        <a href="/alimentebanque"><i class="fa fa-credit-card"> ETAT D'ALIMENTATION</i></a>
+                        @if (Auth::user()->groupe == 'Gestionnaire')
+                        <a href="/alimentebanque/create"><i class="fa fa-credit-card"> ALIMENTE BANQUE</i></a>
+                        @endif
                     </div>
                 </div>
-                <div class="tab-pane fade" id="agences">
+                <div class="tab-pane fade" id="achats">
                     <div class="icon-bar">
-                        <a href="/agences"><i class="fa fa-home"></i></a>
-                        <a href="/agences/create"><i class="fa fa-home"></i></a>
+                        <a href="/achats"><i class="fa fa-credit-card"> ACHATS</i></a>
+                        @if (Auth::user()->groupe == 'Gestionnaire')
+                        <a href="/achats/create"><i class="fa fa-plus"> ACHETE</i></a>
+                        @endif
                     </div>
                 </div>
+                @if (Auth::user()->groupe == 'Administrateur')
+                    <div class="tab-pane fade" id="agences">
+                        <div class="icon-bar">
+                            <a href="/agences"><i class="fa fa-building"> AGENECS</i></a>
+                            <a href="/agences/create"><i class="fa fa-plus"> NOUVELLE AGENCE</i></a>
+                        </div>
+                    </div>
+                @endif
                 <div class="tab-pane fade" id="fournisseurs">
                     <div class="icon-bar">
-                        <a href="/fournisseurs"><i class="fa fa-home"></i></a>
-                        <a href="/fournisseurs/create"><i class="fa fa-home"></i></a>
+                        <a href="/fournisseurs"><i class="fa fa-users"> FOURNISSEURS</i></a>
+                        <a href="/fournisseurs/create"><i class="fa fa-user-plus"> NOUVEAU FOURNISSEUR</i></a>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="fournitures">
                     <div class="icon-bar">
-                        <a href="/fournitures"><i class="fa fa-home"></i></a>
-                        <a href="/fournitures/create"><i class="fa fa-home"></i></a>
+                        <a href="/fournitures"><i class="fa fa-list-ol"> FOURNITURES</i></a>
+                        <a href="/fournitures/create"><i class="fa fa-plus"> NOUVELLE FOURNITURE</i></a>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="utilisateur">
+                @if (Auth::user()->groupe == 'Administrateur')
+                <div class="tab-pane fade" id="utilisateurs">
                     <div class="icon-bar">
+                        <a href="/utilisateurs"><i class="fa fa-home"> UTILISATEURS</i></a>
+                        <a href="/utilisateurs/create"><i class="fa fa-home"> NOUVELLE UTILISATEURS</i></a>
                     </div>
                 </div>
+                @endif
             </div>
             @endauth
         <main class="py-4">
@@ -163,5 +189,8 @@
     <script src="{{ asset('assets/js/bootstrap.min.js') }}" defer></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script>
     <script src="{{ asset('assets/js/app.js') }}" defer></script>
+    <script src="{{ asset('assets/js/aliment-cb.js') }}" defer></script>
+    <script src="{{ asset('assets/js/arretes-c.js') }}" defer></script>
+    <script src="{{ asset('assets/js/achats.js') }}" defer></script>
 </body>
 </html>

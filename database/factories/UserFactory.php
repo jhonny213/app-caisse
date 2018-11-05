@@ -15,9 +15,14 @@ use Faker\Generator as Faker;
 
 $factory->define(Caisse\User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
+        'nom' => $faker->lastName,
+        'prenom' => $faker->firstName,
+        'username' => $faker->unique()->userName,
+        'groupe' => $faker->randomElement([
+            User::DIRECTEUR,
+            User::GESTIONNAIRE,
+        ]),
+
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         'remember_token' => str_random(10),
     ];
