@@ -18,6 +18,9 @@ class CreateAchatsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
 
+            $table->integer('agence_id')->unsigned();
+            $table->foreign('agence_id')->references('id')->on('agences');
+
             $table->integer('fournisseur_id')->unsigned();
             $table->foreign('fournisseur_id')->references('id')->on('fournisseurs');
 
@@ -26,6 +29,9 @@ class CreateAchatsTable extends Migration
 
             $table->enum('machat', ['caisse','banque']);
             $table->decimal('prix');
+            $table->integer('qantite')->default(1);
+
+
             $table->integer('validation');
             $table->string('desc')->nullable();
             $table->timestamps();

@@ -27,7 +27,7 @@
 
             .icon-bar {
                 width: 100%;
-                background-color: #cccccc;
+                background-color: #ededed;
                 overflow: auto;
             }
 
@@ -37,16 +37,18 @@
                 text-align: center;
                 padding: 12px 0;
                 transition: all 0.3s ease;
-                color: white;
-                font-size: 18px;
+                color: #1d68a7;
+                font-size: 16px;
             }
 
             .icon-bar a:hover {
-                background-color: #000;
+                background-color: #c6c8ca;
             }
-
+            .nav a:hover {
+                background-color: #ccc;
+            }
             .active {
-                background-color: #4CAF50;
+                background-color: #FFFFFF;
             }
             .tab-content{
 
@@ -54,6 +56,10 @@
             #radioBtn .notActive{
                 color: #3276b1;
                 background-color: #fff;
+            }
+            .btn-group-sm a{
+                color: #FFFFFF;
+                width: 40%;
             }
         </style>
 
@@ -63,7 +69,9 @@
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+
+                <h2>{{ config('app.name', '') }} @auth Agence {{ Auth::user()->agence_id }}  @endauth</h2>
+                    @auth<h5 style="margin-top: -10px;">Accée {{ Auth::user()->groupe }}</h5>@endauth
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -121,12 +129,14 @@
                 <div class="tab-pane fade" id="caisse">
                     <div class="icon-bar">
                         <a href="/alimentecaisse"><i class="fa fa-credit-card"> ETAT D'ALIMENTATION</i></a>
-                        @if (Auth::user()->groupe == 'Gestionnaire')
-                        <a href="/alimentecaisse/create"><i class="fa fa-credit-card"> ALIMENTE CAISSE</i></a>
-                        @endif
                         <a href="/arretecaisse"><i class="fa fa-credit-card"> ETAT D'ARRET</i></a>
                         @if (Auth::user()->groupe == 'Gestionnaire')
-                        <a href="/arretecaisse/create"><i class="fa fa-credit-card"> ARRETE CAISSE</i></a>
+                            <div class="nav navbar btn-group-sm">
+                                <a href="/alimentecaisse/create" class="btn btn-info fa fa-plus "> ALIMENTE CAISSE</a>
+
+
+                                <a href="/arretecaisse/create" class="btn btn-info fa float-right ">  ARRETE CAISS</a>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -134,15 +144,21 @@
                     <div class="icon-bar">
                         <a href="/alimentebanque"><i class="fa fa-credit-card"> ETAT D'ALIMENTATION</i></a>
                         @if (Auth::user()->groupe == 'Gestionnaire')
-                        <a href="/alimentebanque/create"><i class="fa fa-credit-card"> ALIMENTE BANQUE</i></a>
+                            <div class="nav navbar btn-group-sm">
+                                <a href="/alimentebanque/create" class="btn btn-info fa fa-plus "> ALIMENTE BANQUE</a>
+                            </div>
                         @endif
                     </div>
                 </div>
                 <div class="tab-pane fade" id="achats">
                     <div class="icon-bar">
+                        <a href="/achats/cmd"><i class="fa fa-credit-card"> COMMANDES</i></a>
                         <a href="/achats"><i class="fa fa-credit-card"> ACHATS</i></a>
+                        <a href="/achats/refus"><i class="fa fa-credit-card"> COMMANDES REFUSE</i></a>
                         @if (Auth::user()->groupe == 'Gestionnaire')
-                        <a href="/achats/create"><i class="fa fa-plus"> ACHETE</i></a>
+                        <div class="nav navbar btn-group-sm">
+                            <a href="/achats/create" class="btn btn-info fa fa-plus "> COMMANDER</a>
+                        </div>
                         @endif
                     </div>
                 </div>
@@ -150,20 +166,28 @@
                     <div class="tab-pane fade" id="agences">
                         <div class="icon-bar">
                             <a href="/agences"><i class="fa fa-building"> AGENECS</i></a>
-                            <a href="/agences/create"><i class="fa fa-plus"> NOUVELLE AGENCE</i></a>
+                            <div class="nav navbar btn-group-sm">
+                                <a href="/agences/create" class="btn btn-info fa fa-plus"> NOUVELLE AGENCE</a>
+                            </div>
                         </div>
                     </div>
                 @endif
                 <div class="tab-pane fade" id="fournisseurs">
                     <div class="icon-bar">
                         <a href="/fournisseurs"><i class="fa fa-users"> FOURNISSEURS</i></a>
-                        <a href="/fournisseurs/create"><i class="fa fa-user-plus"> NOUVEAU FOURNISSEUR</i></a>
+                        <a href="/fournisseurs/blocke"><i class="fa fa-users"> FOURNISSEURS BLOCKE</i></a>
+                        <div class="nav navbar btn-group-sm">
+                            <a href="/fournisseurs/create" class="btn btn-info fa fa-plus"> NOUVEAU FOURNISSEUR</a>
+                        </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="fournitures">
                     <div class="icon-bar">
                         <a href="/fournitures"><i class="fa fa-list-ol"> FOURNITURES</i></a>
-                        <a href="/fournitures/create"><i class="fa fa-plus"> NOUVELLE FOURNITURE</i></a>
+                        <a href="/fournitures/blocke"><i class="fa fa-list-ol"> FOURNITURES BLOCKE</i></a>
+                        <div class="nav navbar btn-group-sm">
+                            <a href="/fournitures/create" class="btn btn-info fa fa-plus"> NOUVELLE FOURNITURE</a>
+                        </div>
                     </div>
                 </div>
                 @if (Auth::user()->groupe == 'Administrateur')

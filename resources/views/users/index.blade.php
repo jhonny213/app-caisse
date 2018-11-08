@@ -15,7 +15,7 @@
             <tr>
                 <td>{{$val['nom']}} {{$val['prenom']}}</td>
                 <td>{{$val['username']}}</td>
-                <td>{{$val['id_agence']}}</td>
+                <td>{{$val['name']}}</td>
                 <td>{{$val['groupe']}}</td>
             </tr>
         @endforeach

@@ -15,8 +15,13 @@ class CreateFournituresTable extends Migration
     {
         Schema::create('fournitures', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('libelle')->unique();
+
+            $table->integer('agence_id')->unsigned();
+            $table->foreign('agence_id')->references('id')->on('agences');
+
+            $table->string('libelle');
             $table->string('desc')->nullable();
+            $table->dateTime('deleted_at')->nullable();
             $table->timestamps();
         });
     }

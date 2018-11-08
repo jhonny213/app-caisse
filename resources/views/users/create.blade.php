@@ -66,7 +66,7 @@
                                     <select id="groupe" class="form-control{{ $errors->has('groupe') ? ' is-invalid' : '' }}" name="groupe"  required autofocus>
                                         <option value="">Selectionné groupe d'utilisateur</option>
 
-                                        <option value="Administrateur">Administrateur</option>
+
                                         <option value="Directeur">Directeur</option>
                                         <option value="Gestionnaire">Gestionnaire</option>
 

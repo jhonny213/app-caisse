@@ -21,6 +21,7 @@ class CreateAgencesTable extends Migration
             $table->string('tel',15)->unique();
             $table->decimal('caisse')->default(0);
             $table->decimal('banque')->default(0);
+
             $table->timestamps();
         });
     }

@@ -15,17 +15,19 @@ class UserController extends Controller
     }
     //lister utilisateurs
     public function index(){
-        $listUsers = User::all();
+        $listUsers = User::join('agences', 'agences.id', '=', 'users.agence_id')->
+            select('users.*','agences.id',"agences.name")->get();
         return view('users.index',['users' => $listUsers]);
     }
     //affiche le formumair de cration d'utilisateur
     public function create(){
-        $listAgence = Agence::select('agences.id','agences.name')->where('agences.id','!=',1)->get();
+        $listAgence = Agence::select('name','id')->where('id','!=',1)->get();
         return view('users.create',['agencelist'=>$listAgence]);
     }
 
     public function store(Request $requeste){
         $user = new User();
+
         $user->nom = $requeste->input('nom');
         $user->prenom = $requeste->input('prenom');
         $user->username = $requeste->input('nom').'.'.$requeste->input('prenom');

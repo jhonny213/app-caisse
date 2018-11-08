@@ -8,9 +8,9 @@
                     {{csrf_field()}}
                     <div class="form-group">
                         <label for="">Solde actuel: </label>
-                        @foreach($banque as $val)
-                         <input type="number" step="0.01"   id="old_fonds" class="form-control" disabled="disabled" value="{{$val['banque']}}">
-                        @endforeach
+
+                         <input type="number" step="0.01"   id="old_fonds" class="form-control" disabled="disabled" value="{{$banque}}">
+
                     </div>
 
                     <div class="form-group">

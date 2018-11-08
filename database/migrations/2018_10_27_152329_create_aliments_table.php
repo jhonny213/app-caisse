@@ -15,8 +15,13 @@ class CreateAlimentsTable extends Migration
     {
         Schema::create('aliments', function (Blueprint $table) {
             $table->increments('id');
+
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+
+            $table->integer('agence_id')->unsigned();
+            $table->foreign('agence_id')->references('id')->on('agences');
+
             $table->enum('malimente', ['caisse','banque']);
             $table->decimal('old_somme')->default(0);
             $table->decimal('somme');

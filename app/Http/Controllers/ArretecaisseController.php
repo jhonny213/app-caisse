@@ -14,12 +14,14 @@ class ArretecaisseController extends Controller
     public function index(){
         if(Auth::user()->groupe == 'Administrateur'){
             $caisseListe = Arrete::join('users', 'arretes.user_id', '=', 'users.id')->
-            join('agences','users.agence_id','=','agences.id')->
+            join('agences','users.agence_id','=','agence.name')->
             select('arretes.*', 'users.id','users.nom','users.prenom','users.agence_id',
-                'agences.id','agences.name')->
+                'agence.name','agences.name')->
             get();
 
-        }else{
+        }elseif(Auth::user()->groupe == 'Directeur'){
+            $caisseListe = Arrete::where('agence_id',Auth::user()->agence_id)->get();
+        }elseif(Auth::user()->groupe == 'Gestionnaire'){
             $caisseListe = Arrete::where('user_id',Auth::user()->id)->get();
         }
         return view('caisses.arretes.index',['arretes'=>$caisseListe]);
@@ -39,6 +41,7 @@ class ArretecaisseController extends Controller
 
         $arrete = new Arrete();
         $arrete['user_id'] = Auth::user()->id;
+        $arrete['agence_id'] = Auth::user()->agence_id;
         $arrete['1_da'] = $requeste->input('1da');
         $arrete['2_da'] = $requeste->input('2da') * 2;
         $arrete['5_da'] = $requeste->input('5da') * 5;
@@ -51,7 +54,7 @@ class ArretecaisseController extends Controller
         $arrete['1000_da'] = $requeste->input('1000da') * 1000;
         $arrete['2000_da'] = $requeste->input('2000da') * 2000;
         $arrete['sold_caisse'] = $requeste->input('sold_Brouillard');
-        $arrete->user_id = Auth::user()->id;
+
 
         $arrete->save();
 

@@ -15,8 +15,13 @@ class CreateArretesTable extends Migration
     {
         Schema::create('arretes', function (Blueprint $table) {
             $table->increments('id');
+
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
+
+            $table->integer('agence_id')->unsigned();
+            $table->foreign('agence_id')->references('id')->on('agences');
+
             $table->integer('1_da')->default(0)->nullable();
             $table->integer('2_da')->default(0)->nullable();
             $table->integer('5_da')->default(0)->nullable();

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFournisseursTable extends Migration
+class CreateChekesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,18 @@ class CreateFournisseursTable extends Migration
      */
     public function up()
     {
-        Schema::create('fournisseurs', function (Blueprint $table) {
+        Schema::create('chekes', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('agence_id')->unsigned();
             $table->foreign('agence_id')->references('id')->on('agences');
 
-            $table->string('name');
-            $table->string('reson_social')->nullable();
-            $table->string('adresse')->nullable();
-            $table->string('tel')->nullable();
-            $table->string('site_web')->nullable();
-            $table->string('email');
-            $table->dateTime('deleted_at')->nullable();
+            $table->integer('achat_id')->unsigned();
+            $table->foreign('achat_id')->references('id')->on('achats');
+
+            $table->integer('numero');
+            $table->integer('date');
+
             $table->timestamps();
         });
     }
@@ -37,6 +36,6 @@ class CreateFournisseursTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fournisseurs');
+        Schema::dropIfExists('chekes');
     }
 }

@@ -12,10 +12,26 @@ class AgencesTableSeeder extends Seeder
     public function run()
     {
         DB::table('agences')->insert([
-            'name' => 'Direction Général',
+            'name' => 'ADMINISTRATEUR',
+            'wilaya' => 'ANABA',
+            'adresse' => 'cité ANABA',
+            'tel' => '000000000',
+            'caisse' => 0,
+            'banque' => 0
+        ]);
+        DB::table('agences')->insert([
+            'name' => 'CIRTA',
             'wilaya' => 'constantine',
-            'adresse' => 'cité',
-            'tel'=> '013245987',
+            'adresse' => 'cité cirta centre vilel cne',
+            'tel'=> '013215987',
+            'caisse' => 0,
+            'banque' => 0
+        ]);
+        DB::table('agences')->insert([
+            'name' => 'EL KHROUB',
+            'wilaya' => 'constantine',
+            'adresse' => 'cité el khroube ',
+            'tel'=> '013455987',
             'caisse' => 0,
             'banque' => 0
         ]);

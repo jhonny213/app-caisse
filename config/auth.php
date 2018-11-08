@@ -45,6 +45,7 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+
     ],
 
     /*
@@ -69,11 +70,6 @@ return [
             'driver' => 'eloquent',
             'model' => Caisse\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

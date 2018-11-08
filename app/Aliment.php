@@ -10,8 +10,13 @@ class Aliment extends Model
 
     protected $fillable =['malimentes', 'old_somme', 'somme'];
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo("Caisse\User");
+    }
+
+    public function agence()
+    {
+        return $this->belongsTo("Caisse\Agence");
     }
 }

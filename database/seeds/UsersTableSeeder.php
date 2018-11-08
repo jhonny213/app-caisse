@@ -11,22 +11,57 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $agence = Agence::all();
-        foreach ($agence as $val){
-            $id = $val['id'];
-        }
         $mytime = Carbon\Carbon::now();
-        if($id > 0){
+
             DB::table('users')->insert([
                 'nom' => 'nahla',
                 'prenom' => 'nina',
                 'username' => 'nahla.nina',
                 'groupe'=> 'Administrateur',
-                'password' => Hash::make('0000'),
+                'password' => Hash::make('000000'),
                 'created_at' => $mytime,
                 'updated_at' => $mytime,
-                'agence_id' => $id
+                'agence_id' => 1
             ]);
-        }
+            DB::table('users')->insert([
+                'nom' => 'haddad',
+                'prenom' => 'nacereddine',
+                'username' => 'haddad.nacereddine',
+                'groupe'=> 'Directeur',
+                'password' => Hash::make('000000'),
+                'created_at' => $mytime,
+                'updated_at' => $mytime,
+                'agence_id' => 2
+            ]);
+            DB::table('users')->insert([
+                'nom' => 'gest',
+                'prenom' => 'test',
+                'username' => 'gest.test',
+                'groupe'=> 'Gestionnaire',
+                'password' => Hash::make('000000'),
+                'created_at' => $mytime,
+                'updated_at' => $mytime,
+                'agence_id' => 2
+            ]);
+            DB::table('users')->insert([
+                'nom' => 'haddad',
+                'prenom' => 'nacereddine',
+                'username' => 'dir.dir',
+                'groupe'=> 'Directeur',
+                'password' => Hash::make('000000'),
+                'created_at' => $mytime,
+                'updated_at' => $mytime,
+                'agence_id' => 3
+            ]);
+            DB::table('users')->insert([
+                'nom' => 'gest',
+                'prenom' => 'test',
+                'username' => 'gest.gest',
+                'groupe'=> 'Gestionnaire',
+                'password' => Hash::make('000000'),
+                'created_at' => $mytime,
+                'updated_at' => $mytime,
+                'agence_id' => 3
+            ]);
     }
 }

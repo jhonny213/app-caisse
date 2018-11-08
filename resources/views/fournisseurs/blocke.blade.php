@@ -15,7 +15,7 @@
             @if(Auth::user()->groupe == 'Administrateur')
                 <th>Agences</th>
             @endif
-            <th>Action</th>
+            <th>Restorer</th>
         </tr>
     @if(!empty($fournisseurs))
         @foreach($fournisseurs as $val)
@@ -30,12 +30,11 @@
                     <th>{{$val['NameAgence']}}</th>
                 @endif
                 <td>
-                   <form method="post" action='{{url("/fournisseurs/".$val->IDfournisseur)}}'>
+                   <form method="post" action='{{url("/fournisseurs/blocke/".$val->IDfournisseur)}}'>
                         <input type="hidden" name="_method" value="PUT">
                         {{csrf_field()}}
                         {{ method_field('DELETE') }}
-                       <a href="{{url('/fournisseurs/'.$val->IDfournisseur.'/edit')}}" class="btn btn-info fa fa-edit float-left" title="Modifier"> </a>
-                       <button type="submit" class="btn btn-warning fa fa-remove" style="margin-left: 5px;" title="Blocké"> </button>
+                  <button type="submit" class="btn btn-warning fa fa-recycle" style="margin-left: 5px;" title="Blocké"> </button>
                     </form>
                 </td>
             </tr>
